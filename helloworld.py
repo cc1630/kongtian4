@@ -1,2 +1,2 @@
 print("hello world!");
-print("hello kt5!");
+print("hello kt6!");
