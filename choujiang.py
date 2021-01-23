@@ -4,7 +4,7 @@ import ctypes
 import time
 import sys
 import os
-from xml.dom.minidom import parse
+from xml.dom.minidom import parse 
 import datetime
 import shutil
 from cv2 import cv2
@@ -17,6 +17,7 @@ path = ''
 end_pic = 'end_pic'
 pictures = 'pictures'
 luck_num = 1 #抽出几张图片 最好数量远小于抽奖池
+count = 50
  
  
 def build_path(args) :
@@ -70,7 +71,8 @@ def run() :
 	luck_filenames = []
 	#可能会有重复的 多跑十次，还有重复就算了
 	for i in range(0, luck_num+10) :
-		for j in range(50):
+		print(count)
+		for j in range(count):
 			filename = random_pic_index()
 			img = cv2.imread(os.getcwd()+'\\'+pictures+'\\'+filename)
 			cv2.namedWindow("process", cv2.WINDOW_NORMAL)
@@ -92,20 +94,28 @@ def run() :
 		cv2.destroyAllWindows()
 		if len(luck_filenames) >= luck_num :
 			break
-	input('Please enter and then exit!!!')
+	#raw input('Please enter and then exit!!!')
 
 class Example(QMainWindow) :
-    
+	global count
 	def __init__(self) :
 		super().__init__()
 	
 		self.initUI()
 	def initUI(self):      
 		#1 systools 安装环境
+
+		label = QLabel("随机次数：", self)
+		label.move(30,30)
+
+		self.lineEdit = QLineEdit(self)
+		self.lineEdit.move(120,30)
+		
 		btn1 = QPushButton("开始", self)
-		btn1.move(80, 50)
-		btn1.resize(150, 50)
+		btn1.move(40, 80)
+		btn1.resize(100, 50)
 		btn1.clicked.connect(self.button1Clicked)  
+
 		#2 build 安装SDK
 		# btn2 = QPushButton("2暂停", self)
 		# btn2.move(50, 150)
@@ -114,11 +124,17 @@ class Example(QMainWindow) :
 
 		self.statusBar()
 		self.setGeometry(200, 300, 300, 300)
-		self.setWindowTitle('抽奖APP-V1.01')
+		self.setWindowTitle('抽奖APP-V1.02')
 		self.show()
 
 	#按钮1事件
 	def button1Clicked(self):
+		global count
+		#self.lineEdit = QtWidgets.QLineEdit(Dialog)
+		#self.lineEdit.setGeometry(QtCore.QRect(70, 90, 171, 391))
+		#self.lineEdit.setObjectName("lineEdit")
+		count = int(self.lineEdit.text())
+    			
 		run()
 		# os.system('ls')#命令行
 		# #os.system('cd /home')
