@@ -40,7 +40,8 @@ class WidgetWindow(QWidget):
     def initUI(self):
         self.label = QLabel(self)
         self.label.setAlignment(Qt.AlignCenter)
-        self.label.setFont(QFont("Roman times", 70, QFont.AnyStyle))
+        #self.label.setFont(QFont("Roman times", 70, QFont.AnyStyle))
+        self.label.setFont(QFont("Microsoft YaHei", 70, QFont.AnyStyle))
         self.label.setGeometry(480, 230, 480, 230)
         self.label.move(0, 0)
         self.setWindowTitle('抽奖中...')
